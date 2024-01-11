@@ -1,30 +1,107 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import { ref, watch } from 'vue';
+import Sortable from 'sortablejs';
+
+const items = ref([
+  { id: 1, name: 'John' },
+  { id: 1, name: 'John' },
+  { id: 1, name: 'John' },
+  { id: 1, name: 'John' },
+  { id: 1, name: 'John' },
+  { id: 1, name: 'John' },
+  { id: 1, name: 'John' },
+  { id: 1, name: 'John' },
+  { id: 1, name: 'John' },
+  { id: 1, name: 'John' },
+  { id: 1, name: 'John' },
+  { id: 1, name: 'John' },
+  { id: 1, name: 'John' },
+  { id: 1, name: 'John' },
+  { id: 2, name: 'Jane' },
+  { id: 3, name: 'Joe' },
+  { id: 2, name: 'Jane' },
+  { id: 3, name: 'Joe' },
+  { id: 2, name: 'Jane' },
+  { id: 3, name: 'Joe' },
+  { id: 2, name: 'Jane' },
+  { id: 3, name: 'Joe' },
+  { id: 2, name: 'Jane' },
+  { id: 3, name: 'Joe' },
+  { id: 2, name: 'Jane' },
+  { id: 3, name: 'Joe' },
+  { id: 2, name: 'Jane' },
+  { id: 3, name: 'Joe' },
+  { id: 2, name: 'Jane' },
+  { id: 3, name: 'Joe' },
+  { id: 2, name: 'Jane' },
+  { id: 3, name: 'Joe' },
+  { id: 2, name: 'Jane' },
+  { id: 3, name: 'Joe' },
+  { id: 2, name: 'Jane' },
+  { id: 3, name: 'Joe' },
+  { id: 2, name: 'Jane' },
+  { id: 3, name: 'Joe' },
+  { id: 2, name: 'Jane' },
+  { id: 3, name: 'Joe' },
+  { id: 2, name: 'Jane' },
+  { id: 3, name: 'Joe' },
+]);
+
+const list = ref();
+
+watch(list, (val) => {
+  if (val) {
+    Sortable.create(val, {
+      animation: 100,
+      onEnd: (evt) => {
+        const itemEl = evt.item;
+        console.log(
+          itemEl.from,
+          itemEl.to,
+          itemEl.oldDraggableIndex,
+          itemEl.newDraggableIndex,
+        );
+      },
+    });
+  }
+});
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div
+    class="container"
+    ref="list"
+  >
+    <div
+      v-for="item in items"
+      :key="item.id"
+      class="item"
+    >
+      {{ item.name }}
+    </div>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+div {
+  user-select: none;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  padding: 10px;
+  margin-bottom: 10px;
+  background: #f0f0f0;
+  border: 1px solid black;
+  color: black;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+.container {
+  display: flex;
+  width: 100%;
+  flex-flow: row wrap;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+.item:nth-child(odd) {
+  background: #e0e0e0;
 }
 </style>
