@@ -53,13 +53,12 @@ watch(list, (val) => {
   if (val) {
     Sortable.create(val, {
       animation: 100,
-      onEnd: (evt) => {
-        const itemEl = evt.item;
+      onEnd: (el) => {
         console.log(
-          itemEl.from,
-          itemEl.to,
-          itemEl.oldDraggableIndex,
-          itemEl.newDraggableIndex,
+          el.from,
+          el.to,
+          el.oldDraggableIndex,
+          el.newDraggableIndex,
         );
       },
     });
